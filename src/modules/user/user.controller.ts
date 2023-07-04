@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
+import { User } from './entity/user';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -6,15 +7,12 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() createUser: createUser) : void {
-    
+  create(@Body() user: User) : void {
+    this.userService.createUser(user);
   }
-}
 
-
-type createUser = {
-  name: string,
-  email: string,
-  password: string,
-  avatar: string
+  @Get()
+  find() : User[] {
+    return this.userService.findAllUsers();
+  }
 }
