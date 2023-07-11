@@ -34,4 +34,8 @@ export class SignInService {
     findAllSessions(): Promise<Session[]>{
         return this.prisma.session.findMany({});
     }
+
+    deleteSession(userId:number): void{
+        this.prisma.session.delete({where:{userId}});
+    }
 }
