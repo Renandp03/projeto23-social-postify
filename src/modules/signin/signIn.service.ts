@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import SignIn from './entity/SignIn';
-import { Prisma, Session, User } from '@prisma/client';
+import { Session, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { randomUUID } from "crypto";
 import * as bcrypt from 'bcrypt';
@@ -27,7 +27,7 @@ export class SignInService {
             return this.prisma.session.create({data:{userId:user.id,token}}) 
             
         } catch (error) {
-            throw new UnauthorizedException('Email ou senha incorreto.');
+            throw new UnauthorizedException('Email ou senha incorretos.');
         }
     }
 

@@ -6,10 +6,8 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserService {
     constructor(private prisma: PrismaService){}
-    async createUser(userInfo: User) : Promise<User>{
+    async createUser(userInfo: any) : Promise<User>{
         const {name, email, password, avatar} = userInfo;
-        const emailExists = await this.prisma.user.findUnique({where:{email}});
-        if(emailExists) throw new ConflictException('este email não é válido')
         const hashPassword = bcrypt.hashSync(password,10) ;
         return this.prisma.user.create({
             data:{
