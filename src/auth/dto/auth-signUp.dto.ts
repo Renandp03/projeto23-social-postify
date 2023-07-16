@@ -1,16 +1,3 @@
-import { IsEmail, IsString, IsStrongPassword } from "class-validator";
+import { CreateUserDTO } from "src/modules/user/dto/CreateUser.dto";
 
-export default class AuthSignUpDTO {
-
-    @IsString()
-    name: string;
-
-    @IsEmail()
-    email: string;
-
-    @IsStrongPassword()
-    password: string;
-
-    @IsString()
-    avatar: string;    
-}
+export default class AuthSignUpDTO extends CreateUserDTO{}

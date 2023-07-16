@@ -11,18 +11,24 @@ datasource db {
 }
 
 model User {
-  id          Int      @default(autoincrement()) @id
-  email       String   @unique
-  name        String
-  password    String
-  avatar      String
-  createdAt   DateTime @default(now())
-  session     Session?
+  id              Int         @default(autoincrement()) @id
+  email           String      @unique
+  name            String
+  password        String
+  avatar          String
+  createdAt       DateTime    @default(now())
+  publications    Publication[]
 }
 
-model Session {
-  id        Int      @default(autoincrement()) @id
-  token     String   @unique
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
+model Publication {
+  id              Int         @default(autoincrement()) @id
+  image           String
+  title           String      @unique
+  text            String
+  dateToPublish   DateTime
+  published       Boolean     @default(false)
+  socialMedia     String
+  createdAt       DateTime    @default(now())
+  user            User        @relation(fields: [userId], references: [id])
+  userId          Int
 }
