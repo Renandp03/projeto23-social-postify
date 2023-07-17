@@ -1,15 +1,21 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
 import { CreatePublicationDto } from './dto/create-publication.dto';
 import { UpdatePublicationDto } from './dto/update-publication.dto';
 
 @Injectable()
 export class PublicationService {
-  create(createPublicationDto: CreatePublicationDto) {
-    return 'This action adds a new publication';
+
+  constructor(private readonly prisma:PrismaService){}
+  create(publicationInfo: CreatePublicationDto, userId:number) {
+    const {image,title,text,dateToPublish,published,socialMedia} = publicationInfo;
+    return this.prisma.publication.create({
+      data:{image,title,text,dateToPublish,published,socialMedia,userId}
+    });
   }
 
-  findAll() {
-    return `This action returns all publication`;
+  findAllUserPublications(userId:number) {
+    return this.prisma.publication.findMany({where:{userId}});
   }
 
   findOne(id: number) {

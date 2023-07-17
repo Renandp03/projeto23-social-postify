@@ -1,4 +1,5 @@
-import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@nestjs/common";
+import { Console } from "console";
 import { UserService } from "src/modules/user/user.service";
 import { AuthService } from "../auth.service";
 
@@ -20,8 +21,8 @@ export class authGuard implements CanActivate{
         request.user = user;
 
     } catch (error) {
-        console.log(error)
-        return false;
+        if(error.message == 'jwt must be provided') throw new ForbiddenException(error.message);
+        else return false
     }
     return true;
 }

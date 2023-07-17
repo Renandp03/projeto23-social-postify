@@ -33,7 +33,6 @@ export class AuthService {
             
             
         } catch (error) {
-            console.log(error)
             throw new UnauthorizedException('Email ou senha inválidos')
         }
     }

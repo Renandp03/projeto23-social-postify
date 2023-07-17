@@ -24,5 +24,5 @@ export class AuthController {
 
     @UseGuards(authGuard)
     @Get('me')
-    async userLogged(@UserRequest() user:User){}
+    async userLogged(@UserRequest() user:User){return user}
 }
